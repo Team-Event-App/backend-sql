@@ -4,8 +4,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyParser = require('body-parser')
 const cors = require('cors')
-// const jwt = require ('jsonwebtoken')
-// const privateKey = "testing123";
+const jwt = require ('jsonwebtoken')
+const privateKey = "testing123";
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
@@ -27,6 +27,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/user', UserRouter);
-app.use('/event',EventRouter)
+app.use('/event',validateUser, EventRouter)
+
+function validateUser(req, res, next) {
+    jwt.verify(req.headers["access-token"], privateKey, (err, decoded) => {
+      if (err) {
+        res.json(err);
+      } else {
+        req.body.userId = decoded.id;
+        next();
+      }
+    });
+  }
 
 module.exports = app;

@@ -1,25 +1,78 @@
-// const bcrypt = require("bcrypt");
-// const jwt = require("jsonwebtoken");
-// const privateKey = "testing123";
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const privateKey = "testing123";
 
-// const validationRegister = require("../validation/Register");
+const validationRegister = require("../validation/Register");
 const Models = require("../models");
 const User = Models.User
 
 
 module.exports = {
-    createData: (req, res) => {
-        User.create({
-          username: req.body.username,
-          fullname: req.body.fullname,
-          phone: req.body.phone,
-          email: req.body.email,
-          password : req.body.password,
-          imageUrl : req.body.imageUrl
+  register: ((req, res, next) => {
+    const { errors, isValid } = validationRegister(req.body );
+    if (!isValid) {
+        return res
+            .status(400)
+            .json(errors)
+    }
+    User
+        .findOne({where: {email: req.body.email}})
+        .then(user => {
+            if (user) {
+                return res
+                    .status(400)
+                    .json({email: "Email already exists"});
+            } else {
+                const newUser = new User({
+                  username : req.body.username,
+                  fullname: req.body.fullname,
+                  phone: req.body.phone,
+                  email: req.body.email,
+                  password: req.body.password,
+                  imageUrl : req.file && req.file.path,})
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                        if (err) 
+                            throw err;
+                        newUser.password = hash;
+                        newUser
+                            .save()
+                            .then(user => res.json(user))
+                            .catch(err => console.log(err));
+                    });
+                })
+            }
         })
-          .then((result) => res.json(result))
-          .catch((err) => res.json(err));
-      },
+}),
+
+authenticated: (req, res) => {
+  User.findOne({where: { email: req.body.email }}).then((user) => {
+    if (!user) {
+      return res.status(404).json({ email: "Email not Found" });
+    }
+    bcrypt.compare(req.body.password, user.password).then((isMatch) => {
+      if (isMatch) {
+        const payload = {
+          id: user.id,
+          fullname: user.fullname,
+        };
+        jwt.sign(
+          payload,
+          privateKey,
+          {
+            expiresIn: "1d",
+          },
+          (err, token) => {
+            res.json(token);
+          }
+        );
+      } else {
+        return res.status(400).json("Password Incorrect");
+      }
+    });
+  });
+},
+
       getAllData: (req, res, next) => {
         User.findAll({ })      
         .then((result) => {
@@ -60,65 +113,7 @@ module.exports = {
       .catch ((err) => {
           throw err;
       })
-      },
-    };
-
-//   register: (req, res, next) => {
-//     let obj = {
-//       username : req.body.username,
-//       fullname: req.body.fullname,
-//       email: req.body.email,
-//       phone: req.body.phone,
-//       password: req.body.password,
-//       imageUrl : req.file && req.file.path,
-//     };
-//     const { errors, isValid } = validationRegister(obj);
-//     if (!isValid) {
-//       return res.status(400).json(errors);
-//     }
-//     User.findOne({ email: req.body.email })
-//       .then((user) => {
-//         if (user) {
-//           return res.status(400).json({ email: "Email already exists" });
-//         } else {
-//           return User.create(obj);
-//         }
-//       })
-//       .then((response) => res.json(response))
-//       .catch((err) => {
-//         throw err;
-//       });
-//   },
-
-  //fix it
-
-//   authenticated: function (req, res, next) {
-//     User.findOne({ email: req.body.email })
-//       .then((response, err) => {
-//         console.log(response);
-//         if (err) next(err);
-//         else {
-//           if (
-//             response != null &&
-//             bcrypt.compareSync(req.body.password, response.password)
-//           ) {
-//             jwt.sign(
-//               {
-//                 id: response._id,
-//               },
-//               privateKey,
-//               { expiresIn: 60 * 60 },
-//               (err, token) => {
-//                 res.json(token);
-//               }
-//             );
-//           } else {
-//             res.json({ status: err });
-//           }
-//         }
-//       })
-//       .catch((err) => {
-//         throw err;
-//       });
-//   },
+      }
+  
+  }
  
