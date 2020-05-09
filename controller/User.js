@@ -20,6 +20,49 @@ module.exports = {
           .then((result) => res.json(result))
           .catch((err) => res.json(err));
       },
+      getAllData: (req, res, next) => {
+        User.findAll({ })      
+        .then((result) => {
+            res.json({ status: "200", data: result });
+          })
+          .catch((err) => err);
+      },
+      updateDataById: (req, res) => {
+          User.update({
+            username: req.body.username,
+            fullname: req.body.fullname,
+            phone: req.body.phone,
+            email: req.body.email,
+            password : req.body.password,
+            imageUrl : req.body.imageUrl
+          }, {
+            where: {id : req.params.userId}
+          })
+          .then((result) => res.json(result))
+          .catch ((err) => {
+          throw err;
+      })
+      },
+      getDataById: (req, res) => {
+        User.findAll({
+          where: {id : req.params.userId}
+         })
+      .then((result)=> res.json(result))
+      .catch((err) => {
+          throw err;
+      })
+      },
+      deleteById: (req, res) => {
+        User.destroy({
+          where: {id: req.params.eventId}
+        })
+      .then((result) => res.json(result))
+      .catch ((err) => {
+          throw err;
+      })
+      },
+    };
+
 //   register: (req, res, next) => {
 //     let obj = {
 //       username : req.body.username,
@@ -78,21 +121,4 @@ module.exports = {
 //         throw err;
 //       });
 //   },
-  getAllData: (req, res, next) => {
-    User.findAll({ })      
-    .then((result) => {
-        res.json({ status: "200", data: result });
-      })
-      .catch((err) => err);
-  },
-  getDataById: (req, res) => {
-    User.findById(req.params.usersId)
-      .then((result) => res.json(result))
-      .catch((err) => res.json(err));
-  },
-  deleteById: (req, res) => {
-    User.findByIdAndRemove(req.params.userId)
-      .then((result) => res.json(result))
-      .catch((err) => res.json(err));
-  },
-};
+ 

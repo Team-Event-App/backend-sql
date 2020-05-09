@@ -24,6 +24,28 @@ module.exports = {
             throw err;
         })
     },
+    updateDataById: (req, res) => {
+        Event.update({
+            title : req.body.title,
+            category : req.body.category,
+            description : req.body.description,
+            imageEvent : req.body.imageEvent,
+            organizerName : req.body.organizerName,
+            responsibleName : req.body.responsibleName,
+            typeEvent : req.body.typeEvent,
+            location : req.body.location,
+            date : req.body.date,
+            limitPeople : req.body.limitPeople,
+            detail : req.body.detail,
+            userId : req.body.userId
+        }, {
+          where: {id : req.params.eventId}
+        })
+        .then((result) => res.json(result))
+        .catch ((err) => {
+        throw err;
+    })
+    },
     getAllData : (req,res)=>{
         Event.findAll({include: "user"})        
         .then((result) => res.json(result))
@@ -31,27 +53,24 @@ module.exports = {
             throw err;
         })
     },
- 
+   
     getDataById: (req, res) => {
         Event.findAll({
-            where: {id : req.params.eventId},
-            truncate: true
-          })
+            where: {id : req.params.eventId}
+         })
         .then((result)=> res.json(result))
         .catch((err) => {
             throw err;
         })
     },
-
     deleteById: (req, res) => {
-        const id = req.params.id
-        Event.findAll(id)
-        .then( resultToDelete=>{
-            resultToDelete.destroy(id); 
+        Event.destroy({
+            where: {id: req.params.eventId}
+          })
+        .then((result) => res.json(result))
+        .catch ((err) => {
+            throw err;
         })
-        .then( resultAfterDestroy=>{
-            console.log("Deleted :",resultAfterDestroy);
-        })
-        .catch(err=> console.log(err));
     }
+    
 }

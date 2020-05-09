@@ -6,4 +6,5 @@ router.post('/create', Event.createData)
 router.get ('/show',Event.getAllData)
 router.delete('/delete/:eventId', Event.deleteById)
 router.get('/show/:eventId', Event.getDataById)
+router.put('/edit/:eventId', Event.updateDataById)
 module.exports = router;
