@@ -15,6 +15,7 @@ module.exports = {
             location : req.body.location,
             date : req.body.date,
             limitPeople : req.body.limitPeople,
+            price : req.body.price,
             detail : req.body.detail,
             userId : req.body.userId
 
@@ -36,6 +37,7 @@ module.exports = {
             location : req.body.location,
             date : req.body.date,
             limitPeople : req.body.limitPeople,
+            price : req.body.price,
             detail : req.body.detail,
             userId : req.body.userId
         }, {

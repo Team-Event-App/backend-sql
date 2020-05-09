@@ -38,6 +38,9 @@ module.exports = {
       limitPeople: {
         type: Sequelize.INTEGER
       },
+      price: {
+        type: Sequelize.STRING
+      },
       detail: {
         type: Sequelize.STRING
       },

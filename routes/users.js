@@ -20,6 +20,7 @@ router.post('/login', User.authenticated)
 router.get ('/show',User.getAllData)
 router.get ('/show/:userId',User.getDataById)
 router.put('/edit/:userId',User.updateDataById)
+router.delete('/delete/:userId', User.deleteById)
 
 
 module.exports = router;

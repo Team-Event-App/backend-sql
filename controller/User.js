@@ -107,7 +107,7 @@ authenticated: (req, res) => {
       },
       deleteById: (req, res) => {
         User.destroy({
-          where: {id: req.params.eventId}
+          where: {id: req.params.userId}
         })
       .then((result) => res.json(result))
       .catch ((err) => {
