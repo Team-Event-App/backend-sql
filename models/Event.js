@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     price : DataTypes.STRING,
     detail: DataTypes.STRING,
     userId : DataTypes.INTEGER
-  }, {timestamps: false});
+  }, {});
   Event.associate = function(models) {
     Event.belongsTo(models.User, {foreignKey: 'userId', as: 'user'})  };
   return Event;

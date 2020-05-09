@@ -4,7 +4,7 @@ const Event = Model.Event;
 
 module.exports = {
     createData: (req,res) => {
-        Event.create ({
+        Event.create({
             title : req.body.title,
             category : req.body.category,
             description : req.body.description,
@@ -18,9 +18,11 @@ module.exports = {
             price : req.body.price,
             detail : req.body.detail,
             userId : req.body.userId
-
         })
-        .then((result)=> res.json(result))
+        .then((result)=> {
+            console.log(result)
+            res.json(result)
+        })
         .catch((err)=> {
             throw err;
         })
