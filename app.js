@@ -11,7 +11,7 @@ require('dotenv').config();
 var indexRouter = require('./routes/index');
 const UserRouter = require('./routes/users');
 const EventRouter = require('./routes/Event')
-
+const BookingRouter = require('./routes/Booking')
 var app = express();
 
 
@@ -32,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/user', UserRouter);
 app.use('/event',validateUser, EventRouter)
+app.use('/booking',validateUser, BookingRouter)
 
 function validateUser(req, res, next) {
     jwt.verify(req.headers["access-token"], privateKey, (err, decoded) => {
