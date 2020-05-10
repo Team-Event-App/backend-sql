@@ -12,6 +12,7 @@ var indexRouter = require('./routes/index');
 const UserRouter = require('./routes/users');
 const EventRouter = require('./routes/Event')
 const BookingRouter = require('./routes/Booking')
+const PaymentRouter = require('./routes/Payment')
 var app = express();
 
 
@@ -33,7 +34,7 @@ app.use('/', indexRouter);
 app.use('/user', UserRouter);
 app.use('/event',validateUser, EventRouter)
 app.use('/booking',validateUser, BookingRouter)
-
+app.use('/payment', validateUser, PaymentRouter)
 function validateUser(req, res, next) {
     jwt.verify(req.headers["access-token"], privateKey, (err, decoded) => {
       if (err) {
