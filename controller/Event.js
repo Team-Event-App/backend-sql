@@ -8,7 +8,7 @@ module.exports = {
             title : req.body.title,
             category : req.body.category,
             description : req.body.description,
-            imageEvent : req.body.imageEvent,
+            imageEvent : req.file && req.file.path,
             organizerName : req.body.organizerName,
             responsibleName : req.body.responsibleName,
             typeEvent : req.body.typeEvent,

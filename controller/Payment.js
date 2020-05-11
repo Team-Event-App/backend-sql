@@ -21,7 +21,7 @@ module.exports = {
         Payment.update({
             sender : req.body.sender,
             totalAmount : req.body.totalAmount,
-            imageProof : req.body.imageProof,
+            imageProof : req.file && req.file.path,
             bookingId : req.body.bookingId
         }, {
           where: {id : req.params.paymentId}
