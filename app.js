@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/user', UserRouter);
-app.use('/event',validateUser, EventRouter)
+app.use('/event', EventRouter)
 app.use('/booking',validateUser, BookingRouter)
 app.use('/payment', validateUser, PaymentRouter)
 function validateUser(req, res, next) {
