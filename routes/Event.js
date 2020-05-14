@@ -14,8 +14,17 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
 });
-
-router.post('/create',upload.single("imageEvent"), Event.createData)
+function validateUser(req, res, next) {
+  jwt.verify(req.headers["access-token"], privateKey, (err, decoded) => {
+    if (err) {
+      res.status(401).json({...err, message: "please log in again"});
+    } else {
+      req.body.userId = decoded.id;
+      next();
+    }
+  });
+}
+router.post('/create',validateUser, upload.single("imageEvent"), Event.createData)
 router.get ('/show',Event.getAllData)
 router.delete('/delete/:eventId', Event.deleteById)
 router.get('/show/:eventId', Event.getDataById)
