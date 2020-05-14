@@ -38,7 +38,7 @@ app.use('/payment', validateUser, PaymentRouter)
 function validateUser(req, res, next) {
     jwt.verify(req.headers["access-token"], privateKey, (err, decoded) => {
       if (err) {
-        res.json(err);
+        res.sendStatus(401).json(err);
       } else {
         req.body.userId = decoded.id;
         next();
