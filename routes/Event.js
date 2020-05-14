@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const Event = require('../controller/Event')
+const jwt = require("jsonwebtoken");
+const privateKey = "testing123";
 const multer = require("multer");
 
 const storage = multer.diskStorage({
@@ -26,7 +28,7 @@ function validateUser(req, res, next) {
 }
 router.post('/create',validateUser, upload.single("imageEvent"), Event.createData)
 router.get ('/show',Event.getAllData)
-router.delete('/delete/:eventId', Event.deleteById)
-router.get('/show/:eventId', Event.getDataById)
-router.put('/edit/:eventId', Event.updateDataById)
+router.delete('/delete/:eventId',validateUser, Event.deleteById)
+router.get('/show/:eventId', validateUser, Event.getDataById)
+router.put('/edit/:eventId',validateUser, Event.updateDataById)
 module.exports = router;
