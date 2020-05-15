@@ -26,7 +26,7 @@ module.exports = {
       responsibleName: {
         type: Sequelize.STRING
       },
-      typeEvent: {
+      time: {
         type: Sequelize.STRING
       },
       location: {

@@ -11,7 +11,7 @@ module.exports = {
             imageEvent : req.file && req.file.path,
             organizerName : req.body.organizerName,
             responsibleName : req.body.responsibleName,
-            typeEvent : req.body.typeEvent,
+            time : req.body.time,
             location : req.body.location,
             date : req.body.date,
             limitPeople : req.body.limitPeople,
@@ -75,6 +75,13 @@ module.exports = {
         .catch ((err) => {
             throw err;
         })
-    }
+    },
+    searchTitle: (req, res) => {
+        Event.findAll({
+            where: {title : req.body.title}
+          })
+          .then((result) => res.json(result))
+          .catch((err) => res.json(err));
+      },
     
 }

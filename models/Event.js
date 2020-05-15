@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     imageEvent: DataTypes.STRING,
     organizerName: DataTypes.STRING,
     responsibleName: DataTypes.STRING,
-    typeEvent: DataTypes.STRING,
+    time: DataTypes.STRING,
     location: DataTypes.STRING,
     date: DataTypes.STRING,
     limitPeople: DataTypes.INTEGER,
