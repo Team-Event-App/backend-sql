@@ -75,13 +75,6 @@ module.exports = {
         .catch ((err) => {
             throw err;
         })
-    },
-    searchTitle: (req, res) => {
-        Event.findAll({
-            where: {title : req.body.title}
-          })
-          .then((result) => res.json(result))
-          .catch((err) => res.json(err));
-      },
+    }
     
 }
