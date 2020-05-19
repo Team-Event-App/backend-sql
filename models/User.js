@@ -9,7 +9,12 @@ module.exports = (sequelize, DataTypes) => {
     imageUrl: DataTypes.STRING
   }, {});
   User.associate = function(models) {
-    // associations can be defined here
+    User.belongsToMany(models.Event, {
+      through: {
+          model: models.Booking
+      },
+      foreignKey: 'id'
+  })
   };
   return User;
 };

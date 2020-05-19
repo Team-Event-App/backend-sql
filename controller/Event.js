@@ -1,6 +1,7 @@
 const Model = require("../models");
 
 const Event = Model.Event;
+const User = Model.User
 
 module.exports = {
     createData: (req,res) => {
@@ -51,7 +52,7 @@ module.exports = {
     })
     },
     getAllData : (req,res)=>{
-        Event.findAll({include: "user"})        
+        Event.findAll({include: [{model: User, as: 'user'}]})        
         .then((result) => res.json(result))
         .catch((err)=> {
             throw err;

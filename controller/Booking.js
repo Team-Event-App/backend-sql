@@ -1,11 +1,12 @@
 const Model = require("../models");
 
 const Booking = Model.Booking
-
+const User = Model.User
+const Event = Model.Event
 module.exports = {
     createData: (req,res) => {
         Booking.create({
-            name : req.body.name,
+            nameId : req.body.nameId,
             quantity : req.body.quantity,
             total : req.body.total,
             eventId : req.body.eventId
@@ -32,7 +33,7 @@ module.exports = {
     })
     },
     getAllData: (req,res)=>{
-        Booking.findAll({include:"event"})        
+        Booking.findAll({include: [{model: Event, as: 'events', include:{model: User, as: 'user'}}]})        
         .then((result) => res.json(result))
         .catch((err)=> {
             throw err;
@@ -40,9 +41,7 @@ module.exports = {
     },
    
     getDataById: (req, res) => {
-        Booking.findAll({
-            where: {id : req.params.bookingId}
-         })
+        Booking.findAll({include: [{model: User, as: 'user'}, {model: Event, as: 'event'}]}, {where: {id : req.params.bookingId}})
         .then((result)=> res.json(result))
         .catch((err) => {
             throw err;

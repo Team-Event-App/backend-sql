@@ -37,7 +37,7 @@ app.use('/event', EventRouter)
 app.use('/booking',validateUser, BookingRouter)
 app.use('/payment', validateUser, PaymentRouter)
 function validateUser(req, res, next) {
-    jwt.verify(req.headers["token"], privateKey, (err, decoded) => {
+    jwt.verify(req.headers["access-token"], privateKey, (err, decoded) => {
       if (err) {
         res.status(401).json({...err, message: "please log in again"});
       } else {
