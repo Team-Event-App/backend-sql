@@ -52,7 +52,7 @@ module.exports = {
     })
     },
     getAllData : (req,res)=>{
-        Event.findAll({include: [{model: User, as: 'user'}]})        
+        Event.findAll({include: "user"})        
         .then((result) => res.json(result))
         .catch((err)=> {
             throw err;

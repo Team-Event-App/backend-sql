@@ -29,6 +29,6 @@ function validateUser(req, res, next) {
 router.post('/create',validateUser, upload.single("imageEvent"), Event.createData)
 router.get ('/show',Event.getAllData)
 router.delete('/delete/:eventId',validateUser, Event.deleteById)
-router.get('/show/:eventId', validateUser, Event.getDataById)
+router.get('/show/:eventId', Event.getDataById)
 router.put('/edit/:eventId',validateUser, Event.updateDataById)
 module.exports = router;

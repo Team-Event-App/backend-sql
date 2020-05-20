@@ -6,7 +6,6 @@ module.exports = (sequelize, DataTypes) => {
     imageProof: DataTypes.STRING,
     bookingId: DataTypes.INTEGER
   }, {});
-  Payment.associate = function(models) {
-    Payment.belongsTo(models.Booking, {foreignKey: 'bookingId', as: 'booking'})  };
+  Payment.associate = function(models) {  };
   return Payment;
 };
