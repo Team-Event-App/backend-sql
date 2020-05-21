@@ -7,7 +7,8 @@ module.exports = {
         Payment.create({
             sender : req.body.sender,
             totalAmount : req.body.totalAmount,
-            imageProof : req.body.imageProof,
+            imageProof : req.file && req.file.path,
+            status : req.body.status,
             bookingId : req.body.bookingId
         })
         .then((result)=> {
@@ -22,6 +23,7 @@ module.exports = {
             sender : req.body.sender,
             totalAmount : req.body.totalAmount,
             imageProof : req.file && req.file.path,
+            status : req.body.status,
             bookingId : req.body.bookingId
         }, {
           where: {id : req.params.paymentId}
