@@ -85,6 +85,15 @@ module.exports = {
         .catch((err)=> {
             throw err;
         })
+    },
+    getByTitle :(req, res) => {
+        Event.findAll({
+            where: {title : req.params.title}
+        })
+        .then((result) => res.json(result))
+        .catch((err)=> {
+            throw err;
+        })
     }
     
 }
