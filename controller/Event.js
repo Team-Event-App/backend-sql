@@ -76,6 +76,15 @@ module.exports = {
         .catch ((err) => {
             throw err;
         })
+    },
+    getByUserId : (req, res) => {
+        Event.findAll({
+            where: {userId : req.params.userId}
+        })
+        .then((result) => res.json(result))
+        .catch((err)=> {
+            throw err;
+        })
     }
     
 }

@@ -31,4 +31,5 @@ router.get ('/show',Event.getAllData)
 router.delete('/delete/:eventId',validateUser, Event.deleteById)
 router.get('/show/:eventId', Event.getDataById)
 router.put('/edit/:eventId',validateUser, Event.updateDataById)
+router.get('/getByUserId/:userId',Event.getByUserId)
 module.exports = router;
