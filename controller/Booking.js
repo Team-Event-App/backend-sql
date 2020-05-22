@@ -64,6 +64,15 @@ module.exports = {
         .catch ((err) => {
             throw err;
         })
+    },
+    getByBookingId : (req, res) => {
+        Booking.findAll({
+            where: {userId : req.params.bookingId}
+        })
+        .then((result) => res.json(result))
+        .catch((err)=> {
+            throw err;
+        })
     }
     
 }

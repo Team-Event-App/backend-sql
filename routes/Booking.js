@@ -8,5 +8,6 @@ router.get ('/show',Booking.getAllData)
 router.delete('/delete/:bookingId', Booking.deleteById)
 router.get('/show/:bookingId', Booking.getDataById)
 router.put('/edit/:bookingId', Booking.updateDataById)
+router.get('/booking/:bookingId', Booking.getByBookingId)
 
 module.exports = router;
