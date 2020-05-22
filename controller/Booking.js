@@ -65,9 +65,9 @@ module.exports = {
             throw err;
         })
     },
-    getByBookingId : (req, res) => {
+    getDataByName : (req, res) => {
         Booking.findAll({
-            where: {userId : req.params.bookingId}
+            where: {name : req.params.name}
         })
         .then((result) => res.json(result))
         .catch((err)=> {
