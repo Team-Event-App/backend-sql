@@ -97,7 +97,7 @@ authenticated: (req, res) => {
       })
       },
       getDataById: (req, res) => {
-        User.findAll({
+        User.findOne({
           where: {id : req.params.userId}
          })
       .then((result)=> res.json(result))
