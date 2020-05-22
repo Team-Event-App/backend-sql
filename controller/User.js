@@ -87,7 +87,7 @@ authenticated: (req, res) => {
             phone: req.body.phone,
             email: req.body.email,
             password : req.body.password,
-            imageUrl : req.body.imageUrl
+            imageUrl : req.file && req.file.path
           }, {
             where: {id : req.params.userId}
           })
