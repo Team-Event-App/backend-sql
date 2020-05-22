@@ -20,6 +20,9 @@ module.exports = {
       eventId: {
         type: Sequelize.INTEGER
       },
+      eventTitle : {
+        type : Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

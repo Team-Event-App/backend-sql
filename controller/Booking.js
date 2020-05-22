@@ -1,15 +1,15 @@
 const Model = require("../models");
 
 const Booking = Model.Booking
-const Event = Model.Event
-const User = Model.User
+
 module.exports = {
     createData: (req,res) => {
         Booking.create({
             name : req.body.name,
             quantity : req.body.quantity,
             total : req.body.total,
-            eventId : req.body.eventId
+            eventId : req.body.eventId,
+            eventTitle : req.body.eventTitle
         })
         .then((result)=> {
             res.json(result)
@@ -23,7 +23,8 @@ module.exports = {
             name : req.body.name,
             quantity : req.body.quantity,
             total : req.body.total,
-            eventId : req.body.eventId
+            eventId : req.body.eventId,
+            eventTitle : req.body.eventTitle
         }, {
           where: {id : req.params.bookingId}
         })
@@ -33,23 +34,16 @@ module.exports = {
     })
     },
     getAllData: (req,res)=> {
-        Booking.findAll({  include: [
-            // show joining table with include configure
-            { 
-              model: Event,
-              as: 'event',
-              include: [{model: User, as: 'user'}]
-            }
-          ]
-    })
+        Booking.findAll({ include: "event"   })
         .then((result) => res.json(result))
         .catch((err)=> {
             throw err;
         })
     },
     getDataById: (req, res) => {
-        Booking.findAll({where: {id : req.params.bookingId}
+        Booking.findAll({ include: "event" 
 
+},{where: {id : req.params.bookingId}
 })
         .then((result)=> res.json(result))
         .catch((err) => {
