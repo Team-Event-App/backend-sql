@@ -18,7 +18,7 @@ module.exports = {
             limitPeople : req.body.limitPeople,
             price : req.body.price,
             detail : req.body.detail,
-            userId : req.body.userId
+            userId : req.body.userId || req.userId
         })
         .then((result)=> {
             console.log(result)

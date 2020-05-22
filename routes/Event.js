@@ -22,11 +22,15 @@ function validateUser(req, res, next) {
       res.status(401).json({...err, message: "please log in again"});
     } else {
       req.body.userId = decoded.id;
+      console.log('decoded.id = ',decoded.id)
+      req.userId = decoded.id;
       next();
     }
   });
 }
 router.post('/create',validateUser, upload.single("imageEvent"), Event.createData)
+// router.post('/create',validateUser, Event.createData)
+
 router.get ('/show',Event.getAllData)
 router.delete('/delete/:eventId',validateUser, Event.deleteById)
 router.get('/show/:eventId', Event.getDataById)
