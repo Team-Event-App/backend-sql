@@ -80,21 +80,24 @@ authenticated: (req, res) => {
           })
           .catch((err) => err);
       },
-      updateDataById: (req, res) => {
+      updateDataById: (req, res, next) => {
+
+        bcrypt.hash(req.body.password, 10, function(err, hash) {
+          if (err) 
+           throw err;
+          //req.body.password = hash;
+
           User.update({
             username: req.body.username,
             fullname: req.body.fullname,
             phone: req.body.phone,
             email: req.body.email,
-            password : req.body.password,
-            imageUrl : req.file && req.file.path
+            password : hash,
           }, {
             where: {id : req.params.userId}
-          })
-          .then((result) => res.json(result))
-          .catch ((err) => {
-          throw err;
-      })
+          }).then(respose => res.json(respose))
+          .catch(err => console.log(err))
+        })
       },
       getDataById: (req, res) => {
         User.findOne({
