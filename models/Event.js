@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     category: DataTypes.STRING,
     description: DataTypes.STRING,
-    imageEvent: DataTypes.STRING,
+    imageEvent: DataTypes.STRING,  
     organizerName: DataTypes.STRING,
     responsibleName: DataTypes.STRING,
     time: DataTypes.STRING,

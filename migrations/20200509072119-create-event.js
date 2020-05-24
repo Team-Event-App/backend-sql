@@ -18,8 +18,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       imageEvent: {
-        allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       organizerName: {
         type: Sequelize.STRING
