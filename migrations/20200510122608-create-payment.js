@@ -15,6 +15,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       imageProof: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       bookingId: {
