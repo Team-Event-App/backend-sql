@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const User = require('../controller/User')
+const isAdmin = require ('../validation/isAdmin')
 
 const multer = require("multer");
 

@@ -1,4 +1,6 @@
 const Model = require("../models");
+const Sequelize = require('sequelize')
+const { like, or } = Sequelize.Op;
 
 const Event = Model.Event;
 const User = Model.User
@@ -52,7 +54,20 @@ module.exports = {
     })
     },
     getAllData : (req,res)=>{
-        Event.findAll({include: "user"})        
+        console.log('getalldata  ok',req.query)
+const search = (req && req.query && req.query.search) || ""
+        Event.findAll({include: "user" , where : {
+            [or]: {
+                title: {
+                    [like]: `%${search}%`
+                },
+                category:{
+                    [like]: `%${search}%`
+                }
+            }
+            
+        }
+        })        
         .then((result) => res.json(result))
         .catch((err)=> {
             throw err;
