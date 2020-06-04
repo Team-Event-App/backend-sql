@@ -36,7 +36,7 @@ function validateUser(req, res, next) {
 router.post('/register', upload.single("imageUrl"),User.register)
 router.post('/login', User.authenticated)
 router.get ('/show',validateAdmin, User.getAllData)
-router.get ('/show/:userId',validateAdmin, User.getDataById)
+router.get ('/show/:userId',User.getDataById)
 router.put('/edit/:userId', validateUser, User.updateDataById)
 router.delete('/delete/:userId',validateAdmin, User.deleteById)
 router.put('/editPassword',validateUser, User.updatePasswordById)
