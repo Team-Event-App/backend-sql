@@ -1,7 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const User = require('../controller/User')
-const isAdmin = require ('../validation/isAdmin')
+const jwt = require ('jsonwebtoken')
+const privateKey = "testing123";
+
+const { validateAdmin } = require ('../validation/isAdmin')
 
 const multer = require("multer");
 
@@ -16,12 +19,25 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
 });
+function validateUser(req, res, next) {
+  jwt.verify(req.headers["access-token"], privateKey, (err, decoded) => {
+    if (err) {
+      res.status(401).json({...err, message: "please log in again"});
+    } else {
+      req.body.userId = decoded.id;
+      console.log('decoded.id = ',decoded.id)
+      req.userId = decoded.id;
+      next();
+    }
+  });
+}
+
+
 router.post('/register', upload.single("imageUrl"),User.register)
 router.post('/login', User.authenticated)
-router.get ('/show',User.getAllData)
-router.get ('/show/:userId',User.getDataById)
-router.put('/edit/:userId', User.updateDataById)
-router.delete('/delete/:userId', User.deleteById)
-
-
+router.get ('/show',validateAdmin, User.getAllData)
+router.get ('/show/:userId',validateAdmin, User.getDataById)
+router.put('/edit/:userId', validateUser, User.updateDataById)
+router.delete('/delete/:userId',validateAdmin, User.deleteById)
+router.put('/editPassword',validateUser, User.updatePasswordById)
 module.exports = router;
