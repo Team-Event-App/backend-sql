@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const privateKey = "testing123";
 
-const validationRegister = require("../validation/Register");
+const validationRegister = require("../validation/register");
 const Models = require("../models");
 const User = Models.User
 
@@ -113,13 +113,12 @@ module.exports = {
           fullname: req.body.fullname,
           phone: req.body.phone,
           email: req.body.email,
-          imageUrl: req.file && req.file.path,
           // password: hash,
         }, {
           where: {
             id: req.params.userId
           }
-        }).then(result => res.json(result))
+        }).then(respose => res.json(respose))
         .catch(err => console.log(err))
   },
   getDataById: (req, res) => {
@@ -145,6 +144,8 @@ module.exports = {
       })
   },
   updatePasswordById: (req, res) => {
+    console.log(req.userId);
+    
     User.findOne({
         where: {
           id: req.userId

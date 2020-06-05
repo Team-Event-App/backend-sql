@@ -14,6 +14,7 @@ const EventRouter = require('./routes/Event')
 const BookingRouter = require('./routes/Booking')
 const PaymentRouter = require('./routes/Payment')
 const ContactRouter = require('./routes/Contact')
+const {validateUser} = require('./validation')
 var app = express();
 
 
@@ -38,15 +39,6 @@ app.use('/event', EventRouter)
 app.use('/contact', ContactRouter)
 app.use('/booking',validateUser, BookingRouter)
 app.use('/payment', validateUser, PaymentRouter)
-function validateUser(req, res, next) {
-    jwt.verify(req.headers["access-token"], privateKey, (err, decoded) => {
-      if (err) {
-        res.status(401).json({...err, message: "please log in again"});
-      } else {
-        req.body.userId = decoded.id;
-        next();
-      }
-    });
-  }
+
 
 module.exports = app;
