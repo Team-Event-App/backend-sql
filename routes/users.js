@@ -25,7 +25,7 @@ router.post('/register', upload.single("imageUrl"),User.register)
 router.post('/login', User.authenticated)
 router.get ('/show',validateAdmin, User.getAllData)
 router.get ('/show/:userId',User.getDataById)
-router.put('/edit/:userId',User.updateDataById)
+router.put('/edit/:userId',upload.single("imageUrl"), User.updateDataById)
 router.delete('/delete/:userId',validateAdmin, User.deleteById)
 router.put('/editPassword',User.updatePasswordById)
 module.exports = router;
