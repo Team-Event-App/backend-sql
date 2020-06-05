@@ -100,6 +100,7 @@ module.exports = {
       })
       .catch((err) => err);
   },
+  
   updateDataById: (req, res, next) => {
 
     // bcrypt.hash(req.body.password, 10, function (err, hash) {
@@ -112,12 +113,13 @@ module.exports = {
           fullname: req.body.fullname,
           phone: req.body.phone,
           email: req.body.email,
+          imageUrl: req.file && req.file.path,
           // password: hash,
         }, {
           where: {
             id: req.params.userId
           }
-        }).then(respose => res.json(respose))
+        }).then(result => res.json(result))
         .catch(err => console.log(err))
   },
   getDataById: (req, res) => {
