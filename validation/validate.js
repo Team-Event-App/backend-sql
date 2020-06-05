@@ -3,7 +3,7 @@ const privateKey = "testing123";
 
 module.exports.validateAdmin = (req, res, next) => {
   jwt.verify(req.headers["access-token"], privateKey, (err, decoded) => {
-    if (decoded.email == "adminsaja@gmail.com" && !err) {
+    if (decoded.email == "admin@gmail.com" && !err) {
       req.userId = decoded.id;
       next();
     } else {
