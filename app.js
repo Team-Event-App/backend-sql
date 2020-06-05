@@ -4,8 +4,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const jwt = require ('jsonwebtoken')
-const privateKey = "testing123";
+// const jwt = require ('jsonwebtoken')
+// const privateKey = "testing123";
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');

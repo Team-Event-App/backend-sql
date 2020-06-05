@@ -16,8 +16,6 @@ module.exports.validateAdmin = (req, res, next) => {
 }
 
 module.exports.validateUser = (req, res, next)=> {
-
-  
   jwt.verify(req.headers["access-token"], privateKey, (err, decoded) => {
     if (err) {
       res.status(401).json({
