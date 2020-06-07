@@ -20,6 +20,7 @@ const upload = multer({
 router.get ('/show',Event.getAllData)
 router.get('/show/:eventId', Event.getDataById)
 router.get('/getTitle', Event.getTitle)
+router.get('/getCategory', Event.getCategory)
 
 router.post('/create',validateUser, upload.single("imageEvent"), Event.createData)
 router.delete('/delete/:eventId',validateUser, Event.deleteById)

@@ -82,11 +82,29 @@ module.exports = {
     },
     getTitle: (req, res) => {
         const search = (req && req.query && req.query.search) || ""
-        Event.findAll({where: {title: {
-            [like]: `%${search}%`
-        }
-    }
-                        
+        Event.findAll({ where: 
+            {
+            [or]: {
+                title: {
+                    [like]: `%${search}%`
+                }
+            }
+        }           
+            })
+            .then((result) => res.json(result))
+            .catch((err) => {
+                throw err;
+            })
+    },
+    getCategory: (req, res) => {
+        console.log('getalldata  ok', req.query)
+        const search = (req && req.query && req.query.search) || ""
+        Event.findAll({ where: 
+            {
+                category: {
+                    [like]: `%${search}%`
+                }
+        }           
             })
             .then((result) => res.json(result))
             .catch((err) => {
