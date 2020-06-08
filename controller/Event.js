@@ -73,8 +73,7 @@ module.exports = {
                             }
                         }
         
-                    },
-                    limit :
+                    }
                 })
                 .then((result) => res.json(result))
                 .catch((err) => {
