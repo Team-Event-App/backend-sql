@@ -26,6 +26,6 @@ router.post('/create',validateUser, upload.single("imageEvent"), Event.createDat
 router.delete('/delete/:eventId',validateUser, Event.deleteById)
 router.put('/edit/:eventId',validateUser, Event.updateDataById)
 
-router.get('/getByUserId/:userId',validateAdmin, Event.getByUserId)
+router.get('/getByUserId/:userId',validateUser, Event.getByUserId)
 
 module.exports = router;

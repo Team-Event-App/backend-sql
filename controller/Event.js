@@ -59,27 +59,28 @@ module.exports = {
             })
     },
     getAllData: (req, res) => {
-        console.log('getalldata  ok', req.query)
-        const search = (req && req.query && req.query.search) || ""
-        Event.findAll({
-                include: "user",
-                where: {
-                    [or]: {
-                        title: {
-                            [like]: `%${search}%`
-                        },
-                        category: {
-                            [like]: `%${search}%`
+            console.log('getalldata  ok', req.query)
+            const search = (req && req.query && req.query.search) || ""
+            Event.findAll({
+                    include: "user",
+                    where: {
+                        [or]: {
+                            title: {
+                                [like]: `%${search}%`
+                            },
+                            category: {
+                                [like]: `%${search}%`
+                            }
                         }
-                    }
-
-                }
-            })
-            .then((result) => res.json(result))
-            .catch((err) => {
-                throw err;
-            })
-    },
+        
+                    },
+                    limit :5
+                })
+                .then((result) => res.json(result))
+                .catch((err) => {
+                    throw err;
+                })
+        },
     getTitle: (req, res) => {
         const search = (req && req.query && req.query.search) || ""
         Event.findAll({ where: 
@@ -157,3 +158,28 @@ module.exports = {
     }
 
 }
+
+
+// getAllData: (req, res) => {
+//     console.log('getalldata  ok', req.query)
+//     const search = (req && req.query && req.query.search) || ""
+//     Event.findAll({
+//             include: "user",
+//             where: {
+//                 [or]: {
+//                     title: {
+//                         [like]: `%${search}%`
+//                     },
+//                     category: {
+//                         [like]: `%${search}%`
+//                     }
+//                 }
+
+//             },
+//             limit :5
+//         })
+//         .then((result) => res.json(result))
+//         .catch((err) => {
+//             throw err;
+//         })
+// },
