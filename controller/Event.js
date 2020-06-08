@@ -74,7 +74,7 @@ module.exports = {
                         }
         
                     },
-                    limit :5
+                    limit :
                 })
                 .then((result) => res.json(result))
                 .catch((err) => {
