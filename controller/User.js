@@ -29,7 +29,7 @@ module.exports = {
           return res
             .status(400)
             .json({
-              email: "Email already exists"
+              message: "Email already exists"
             });
         } else {
           const newUser = new User({
