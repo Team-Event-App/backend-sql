@@ -11,6 +11,9 @@ const accountSid = process.env.ACCOUNTSID;
 const authToken = process.env.AUTHTOKEN;
 const serviceId = process.env.SERVICE;
 let mailTransporter = nodemailer.createTransport({
+  host: "mail.authsmtp.com",
+  port: 25,
+  secure: false,
   service: "gmail",
   auth: {
     user: "evenityasia@gmail.com",
