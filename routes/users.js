@@ -31,6 +31,6 @@ router.put(
 router.put("/editPassword", validateUser, User.updatePasswordById);
 
 router.get("/show", User.getAllData);
-router.delete("/delete/:userId", validateAdmin, User.deleteById);
+router.delete("/delete/:userId", User.deleteById);
 
 module.exports = router;

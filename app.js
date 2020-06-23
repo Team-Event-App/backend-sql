@@ -38,6 +38,8 @@ app.use("/contact", ContactRouter);
 app.use("/booking", validateUser, BookingRouter);
 app.use("/payment", validateUser, PaymentRouter);
 
+module.exports = app;
+
 // const nodemailer = require("nodemailer");
 
 // let mailTransporter = nodemailer.createTransport({
@@ -88,5 +90,3 @@ app.use("/payment", validateUser, PaymentRouter);
 //     console.log(error);
 //   })
 //   .done();
-
-module.exports = app;

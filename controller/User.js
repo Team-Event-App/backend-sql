@@ -6,7 +6,10 @@ const validationRegister = require("../validation/register");
 const Models = require("../models");
 const User = Models.User;
 const nodemailer = require("nodemailer");
-
+require("dotenv").config();
+const accountSid = process.env.ACCOUNTSID;
+const authToken = process.env.AUTHTOKEN;
+const serviceId = process.env.SERVICE;
 let mailTransporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -53,15 +56,12 @@ module.exports = {
             console.log("Email sent successfully");
           }
         });
-        const accountSid = "AC7ffaea289b86b82f3c89c097da98f459";
-        const authToken = "b1e47424916aa924e392d736d641763f";
-
+        accountSid;
+        authToken;
         const Twilio = require("twilio");
         const client = new Twilio(accountSid, authToken);
 
-        const service = client.notify.services(
-          "ISa572e8924707ad0af9ad02745f92b3ae"
-        );
+        const service = client.notify.services(serviceId);
 
         service.notifications
           .create({
